@@ -4,7 +4,7 @@
   get_url:
     url: https://github.com/ArduCAM/Arducam-Pivariety-V4L2-Driver/releases/download/install_script/install_pivariety_pkgs.sh
     dest: /tmp/install_pivariety_pkgs.sh
-    mode: '0440'
+    mode: '0550'
 
 - name: Install libcamera_dev
   shell: /tmp/install_pivariety_pkgs.sh -p libcamera_dev
