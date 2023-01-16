@@ -1,18 +1,22 @@
 ---
 # tasks file for ansible-role-rpi-hdmi-webcam-hawkeye
 - name: Download ArduCAM install script
+  become: yes
   get_url:
     url: https://github.com/ArduCAM/Arducam-Pivariety-V4L2-Driver/releases/download/install_script/install_pivariety_pkgs.sh
     dest: /tmp/install_pivariety_pkgs.sh
     mode: '0550'
 
 - name: Install libcamera_dev
+  become: yes
   shell: /tmp/install_pivariety_pkgs.sh -p libcamera_dev
 
 - name: Install libcamera_apps
+  become: yes
   shell: /tmp/install_pivariety_pkgs.sh -p libcamera_apps
 
 - name: Install Hawk-Eye kernel driver
+  become: yes
   shell: /tmp/install_pivariety_pkgs.sh -p 64mp_pi_hawk_eye_kernel_driver
 
  
