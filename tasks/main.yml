@@ -1,0 +1,116 @@
+---
+# tasks file for ansible-role-rpi-hdmi-webcam-hawkeye
+- name: Install required packages
+  ansible.builtin.get_url:
+    url: https://github.com/ArduCAM/Arducam-Pivariety-V4L2-Driver/releases/download/install_script/install_pivariety_pkgs.sh
+    dest: install_pivariety_pkgs.sh
+    mode: '0440'
+
+- name: Install libcamera_dev
+  shell: install_pivariety_pkgs.sh -p libcamera_dev
+
+- name: Install libcamera_apps
+  shell: install_pivariety_pkgs.sh -p libcamera_apps
+
+- name: Install Hawk-Eye kernel driver
+  shell: install_pivariety_pkgs.sh -p 64mp_pi_hawk_eye_kernel_driver
+
+ 
+- name: Disable swap service
+  become: yes
+  service:
+    name: dphys-swapfile.service
+    state: stopped
+    enabled: no
+
+- name: Create /etc/systemd/system/camera.start.service from template
+  become: yes
+  template:
+    src: etc/systemd/system/camera.start.service.j2
+    dest: /etc/systemd/system/camera.start.service
+    owner: root
+    group: root
+    mode: 0644
+  notify:
+    - Restart camera.start
+
+- name: Create /etc/systemd/system/webcam.start.service from template
+  become: yes
+  template:
+    src: etc/systemd/system/webcam.start.service.j2
+    dest: /etc/systemd/system/webcam.start.service
+    owner: root
+    group: root
+    mode: 0644
+#  notify:
+#    - Restart webcam.start
+
+- name: Disable webcam service
+  become: yes
+  service:
+    name: webcam.start.service
+    daemon_reload: yes
+    state: stopped
+    enabled: no
+
+- name: Enable camera service
+  become: yes
+  service:
+    name: camera.start.service
+    daemon_reload: yes
+    state: started
+    enabled: yes
+
+- name: Ensure camera gets restarted if average load on system gets too high - this is a workaround for current buggy behaviour
+  become: yes
+  cron:
+    name: "Restart camera on high load"
+    minute: "*/3"
+    job: 'test $(cat /proc/loadavg | cut -d"." -f1) -ge 2 && systemctl restart camera.start'
+
+- name: Ensure camera gets restarted if ERROR RPISTREAM messages occur - this is a workaround for current buggy behaviour
+  become: yes
+  cron:
+    name: 'Restart camera on "ERROR RPISTREAM" messages'
+    minute: "*"
+    job: 'journalctl --since "-60" _SYSTEMD_UNIT=camera.start.service | grep "ERROR RPISTREAM" && systemctl restart camera.start.service'
+
+- name: Ensure camera gets restarted if WARN RPI messages occur - this is a workaround for current buggy behaviour
+  become: yes
+  cron:
+    name: 'Restart camera on "WARN RPI" messages'
+    minute: "*"
+    job: 'journalctl --since "-60" _SYSTEMD_UNIT=camera.start.service | grep "WARN RPI" && systemctl restart camera.start.service'
+
+- name: Ensure log files don't grow too much to save disk space
+  become: yes
+  cron:
+    name: 'Vacuum journal'
+    minute: "1"
+    hour: "1"
+    job: 'journalctl --vacuum-size 1000000'
+
+- name: Remove /etc/localtime
+  become: yes
+  file:
+    path: /etc/localtime
+    state: absent
+    
+- name: Set timezone to Europe/Berlin
+  become: yes
+  lineinfile:
+    path: /etc/timezone
+    regexp: '^'
+    line: 'Europe/Berlin'
+
+- name: Reconfigure timezone
+  become: yes
+  command: dpkg-reconfigure -f noninteractive tzdata
+
+- name: Ensure available software updates are applied nightly
+  become: yes
+  cron:
+    name: 'Apply updates'
+    minute: "4"
+    hour: "4"
+    job: 'apt update && apt -y upgrade && reboot'

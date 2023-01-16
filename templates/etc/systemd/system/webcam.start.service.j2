@@ -1,0 +1,10 @@
+[Unit]
+Description=Start the webcam fullscreen
+
+[Service]
+Type=simple
+ExecStart=libcamera-vid -t 0 --inline --listen -o tcp://0.0.0.0:8888 --viewfinder-width 1920 --viewfinder-height 1080 --width 1920 --height 1080 -f &
+# use e.g. "vlc tcp/h264://raspberrypi.local:8888" to access the webcam stream
+
+[Install]
+WantedBy=multi-user.target
