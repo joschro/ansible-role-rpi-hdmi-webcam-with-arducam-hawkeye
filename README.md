@@ -78,6 +78,15 @@ Create a file called ```ansible-playbook-rpi-hdmi-webcam-hawkeye.yml``` in the *
         name: '*'
         state: latest
 
+    - name: Clone https://github.com/ArduCAM/PCA9685.git demo repository
+      ansible.builtin.git:
+        repo: 'https://github.com/ArduCAM/PCA9685.git'
+        dest: /home/pi/PCA9685
+
+    - name: Build the PCA9685 default target
+      make:
+        chdir: /home/pi/PCA9685
+
     - name: Unconditionally reboot the machine with all defaults
       ansible.builtin.reboot:
 ```
