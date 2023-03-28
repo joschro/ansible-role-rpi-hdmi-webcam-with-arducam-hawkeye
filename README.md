@@ -7,7 +7,7 @@ Thanks to https://medium.com/javarevisited/using-a-raspberry-pi-as-hdmi-camera-9
 
 Steps to install hawkeye camera taken from https://docs.arducam.com/Raspberry-Pi-Camera/Native-camera/64MP-Hawkeye/
 
-Steps to install pan-tilt demo taken from 
+Steps to install pan-tilt demo taken from https://www.arducam.com/downloads/64mp-camera-pan-tilt-kit-manual.pdf and https://github.com/ArduCAM/PCA9685
 
 Requirements
 ------------
