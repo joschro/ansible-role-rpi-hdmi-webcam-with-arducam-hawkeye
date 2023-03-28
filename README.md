@@ -16,11 +16,11 @@ A Raspberry Pi running RaspiOS with an Arducam Hawkeye camera attached to it.
 
 I used
 * a Raspberry Pi Zero 2 W: https://www.berrybase.de/raspberry-pi/raspberry-pi-computer/boards/raspberry-pi-zero-2-w?c=319
-* an Arducam Hawkeye camera: 
+* an Arducam Hawkeye camera with pan-tilt kit: https://www.arducam.com/product/camera-pan-tilt-kit/
 * connector cable: https://www.berrybase.de/raspberry-pi/raspberry-pi-computer/kabel-adapter/gpio-csi-dsi-kabel/flexkabel-f-252-r-raspberry-pi-zero-und-kameramodul?number=RPIZ-FLEX-15
 * a 32GB micro SD card
 * a gooseneck with table clamp: https://www.berrybase.de/neu/flexibles-schwanenhals-stativ-mit-tischklemme-40cm-schwarz?c=2407
-* a Mini-HDMI to HDMI cable
+* a Mini-HDMI to HDMI cable: https://www.amazon.de/dp/B09CKXL23S
 
 This is how the assembled HDMI webcam looks like:
 
