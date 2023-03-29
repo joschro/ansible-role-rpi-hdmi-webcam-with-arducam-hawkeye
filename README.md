@@ -72,11 +72,14 @@ Create a file called ```ansible-playbook-rpi-hdmi-webcam-hawkeye.yml``` in the *
       include_role:
         name: joschro.rpi-hdmi-webcam-hawkeye
 
-    - name: Update packages
-      become: yes
-      package:
-        name: '*'
-        state: latest
+# https://github.com/ArduCAM/Arducam-Pivariety-V4L2-Driver states that "Since 5.15.38, the arducam-pivariety driver has been merged into the Raspberry Pi
+# kernel and the name of the device tree is changed to arducam-pivariety, so dtoverlay=arducam-pivariety is required to set the overlay"
+# with that, automatically updating to the latest kernel seems to be a bad idea
+#    - name: Update packages
+#      become: yes
+#      package:
+#        name: '*'
+#        state: latest
 
     - name: Clone https://github.com/ArduCAM/PCA9685.git demo repository
       ansible.builtin.git:
