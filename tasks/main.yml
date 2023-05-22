@@ -111,10 +111,11 @@
   become: yes
   command: dpkg-reconfigure -f noninteractive tzdata
 
+# not a good idea as long as only specific kernel versions are supported, thus only adding upgrade as comment for now
 - name: Ensure available software updates are applied nightly
   become: yes
   cron:
     name: 'Apply updates'
     minute: "4"
     hour: "4"
-    job: 'apt update && apt -y upgrade && reboot'
+    job: 'apt update # && apt -y upgrade && reboot'
