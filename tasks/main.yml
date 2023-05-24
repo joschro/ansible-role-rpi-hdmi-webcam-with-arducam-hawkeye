@@ -17,6 +17,7 @@
 
 - name: Install Hawk-Eye kernel driver
   become: yes
+  ignore_errors: true
   shell: /tmp/install_pivariety_pkgs.sh -p 64mp_pi_hawk_eye_kernel_driver
 
  
