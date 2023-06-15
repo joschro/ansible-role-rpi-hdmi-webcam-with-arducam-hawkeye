@@ -21,7 +21,7 @@ Type=simple
 #Mode: 4056x3040 fmt pRCC Score: 887 (best 500)
 #Mode: 2028x1520 fmt pRCC Score: 0 (best 0)
 #Mode: 2028x1080 fmt pRCC Score: 1083.84 (best 0)
-ExecStart=libcamera-hello --viewfinder-width 1920 --viewfinder-height 1080 --width 1920 --height 1080 -f -t 0 --vflip --autofocus-mode continuous --autofocus-range full --autofocus-window 0.25,0.2,0.5,0.5 --saturation 0.6 &
+ExecStart=libcamera-hello --viewfinder-width 1920 --viewfinder-height 1080 --width 1920 --height 1080 -f -t 0 --vflip --autofocus-mode continuous --autofocus-range full --autofocus-window 0.25,0.2,0.5,0.5 --saturation 0.6 --roi 0.1,0.1,0.8,0.8 &
 
 [Install]
 WantedBy=multi-user.target
