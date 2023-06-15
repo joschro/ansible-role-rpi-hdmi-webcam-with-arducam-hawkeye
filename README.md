@@ -5,7 +5,7 @@ Set up a Raspberry Pi in combination with an Arducam 64MP Arducam Hawkeye camera
 
 Thanks to https://medium.com/javarevisited/using-a-raspberry-pi-as-hdmi-camera-92af84aafee2 for the idea.
 
-Steps to install hawkeye camera taken from https://docs.arducam.com/Raspberry-Pi-Camera/Native-camera/64MP-Hawkeye/
+Steps to install hawkeye camera taken from https://docs.arducam.com/Raspberry-Pi-Camera/Native-camera/64MP-Hawkeye/ and https://gist.github.com/geerlingguy/de62619a906803808edddaf8bb9cdce8
 
 Steps to install pan-tilt demo taken from https://www.arducam.com/downloads/64mp-camera-pan-tilt-kit-manual.pdf and https://github.com/ArduCAM/PCA9685
 
